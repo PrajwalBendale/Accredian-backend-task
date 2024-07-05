@@ -33,6 +33,7 @@ app.post("/referral", async (req, res) => {
         course,
       },
     });
+    console.log(data);
 
     // Send referral email
     const transporter = nodemailer.createTransport({
@@ -65,7 +66,7 @@ app.post("/referral", async (req, res) => {
 app.get("/referral", (req, res) => {
   res.send("GET request to the referral-page");
 });
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3099;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
