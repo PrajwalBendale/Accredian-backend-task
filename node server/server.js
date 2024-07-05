@@ -2,10 +2,12 @@
 const express = require("express");
 const { PrismaClient } = require("@prisma/client");
 const nodemailer = require("nodemailer");
+const cors = require("cors");
 
 const prisma = new PrismaClient();
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.post("/referral", async (req, res) => {
   const { referrerName, referrerEmail, refereeName, refereeEmail, course } =
@@ -42,7 +44,7 @@ app.post("/referral", async (req, res) => {
     });
 
     const mailOptions = {
-      from: "your-email@gmail.com",
+      from: process.env.EMAIL_USER,
       to: refereeEmail,
       subject: "Referral Notification",
       text: `You have been referred to the course: ${course} by ${referrerName}.`,
@@ -60,6 +62,9 @@ app.post("/referral", async (req, res) => {
   }
 });
 
+app.get("/referral", (req, res) => {
+  res.send("GET request to the referral-page");
+});
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
