@@ -4,12 +4,13 @@ const { PrismaClient } = require("@prisma/client");
 const nodemailer = require("nodemailer");
 const cors = require("cors");
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({ log: ["query", "info", "warn", "error"] });
 const app = express();
 app.use(express.json());
 app.use(cors());
 
 app.post("/referral", async (req, res) => {
+  console.log("post");
   const { referrerName, referrerEmail, refereeName, refereeEmail, course } =
     req.body;
 
@@ -24,6 +25,7 @@ app.post("/referral", async (req, res) => {
   }
 
   try {
+    console.log(referrerName);
     const referral = await prisma.referral.create({
       data: {
         referrerName,
@@ -33,7 +35,7 @@ app.post("/referral", async (req, res) => {
         course,
       },
     });
-    console.log(data);
+    //console.log(data);
 
     // Send referral email
     const transporter = nodemailer.createTransport({
@@ -59,6 +61,7 @@ app.post("/referral", async (req, res) => {
       res.status(200).send({ message: "Referral submitted successfully" });
     });
   } catch (error) {
+    console.log(error);
     res.status(500).send({ error: "Failed to save referral" });
   }
 });
