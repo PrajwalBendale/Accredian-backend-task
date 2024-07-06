@@ -52,7 +52,7 @@ app.post("/referral", async (req, res) => {
       subject: `Referral Notification for ${course} by ${referrerName}`,
       text: `Dear ${refereeName},
 
-I hope this message finds you well. I wanted to reach out and recommend the Full Stack course offered by Accredian Tech. Having recently completed the program myself, I found it exceptionally insightful and valuable for advancing my skills in web development.
+I hope this message finds you well. I wanted to reach out and recommend the ${course} offered by Accredian Tech. Having recently completed the program myself, I found it exceptionally insightful and valuable for advancing my skills in web development.
 
 This course stands out for its hands-on approach and comprehensive curriculum covering everything from frontend technologies like React and Angular to backend frameworks like Node.js and Spring Boot. The instructors are highly knowledgeable and provide excellent support throughout the learning journey.
 
